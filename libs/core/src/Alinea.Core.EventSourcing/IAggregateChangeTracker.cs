@@ -1,27 +1,20 @@
 using System.Collections.Generic;
 
-namespace Alinea.Core.Abstraction.EventSourcing
+namespace Alinea.Core.EventSourcing
 {
     /// <summary>
     /// Tracks changes that happens to an aggregate.
     /// </summary>
-    public interface IAggregateChangeTracker
+    public interface IAggregateChangeTracker : IEnumerable<IEvent>
     {
         /// <summary>
-        /// Determines wheater this instance has state changes.
+        /// Tracks the changes to an aggregate root.
         /// </summary>
-        /// <returns> <c>true</c> if this instance has state changes, otherwise <c>false</c>. </returns>
-        bool HasChange();
+        void TrackChange(IEvent @event);
 
         /// <summary>
-        /// Gets the state changes applied to this instance.
+        /// Reset the changes to the aggregate root.
         /// </summary>
-        /// <returns> A list of recoreded state changes.</returns>
-        IEnumerable<IEvent> GetChanges();
-
-        /// <summary>
-        /// Clear the state changes from the instance.
-        /// </summary>
-        void ClearChanges();
+        void Reset();
     }
 }

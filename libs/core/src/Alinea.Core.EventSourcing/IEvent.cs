@@ -1,5 +1,8 @@
-namespace Alinea.Core.Abstraction.EventSourcing
+namespace Alinea.Core.EventSourcing
 {
+    /// <summary>
+    /// Event marker interface
+    /// </summary>
     public interface IEvent
     {
     }

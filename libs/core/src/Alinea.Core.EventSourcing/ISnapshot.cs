@@ -1,4 +1,4 @@
-namespace Alinea.Core.Abstraction.EventSourcing
+namespace Alinea.Core.EventSourcing
 {
     /// <summary>
     /// Represents operations around snapshoting an aggregate root.

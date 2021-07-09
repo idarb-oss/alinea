@@ -2,12 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Alinea.Core.Abstraction.EventSourcing
+namespace Alinea.Core.EventSourcing
 {
     /// <summary>
     /// Records events applied to an aggregate's root.
     /// </summary>
-    public class ChangeTracker : IEnumerable<IEvent>
+    public class ChangeTracker : IAggregateChangeTracker
     {
         readonly List<IEvent> _changes;
 
@@ -24,7 +24,7 @@ namespace Alinea.Core.Abstraction.EventSourcing
         /// </summary>
         /// <param name="event">The event to record.</param>
         /// <exception cref="ArgumentNullException">Thrown when the specified <paramref name="event"/> is <c>null</c>.</exception>
-        public void Record(IEvent @event)
+        public void TrackChange(IEvent @event)
         {
             if (@event == null) throw new ArgumentNullException(nameof(@event));
             _changes.Add(@event);
