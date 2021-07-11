@@ -7,7 +7,7 @@ namespace Alinea.Core.EventSourcing
     /// <summary>
     /// Records events applied to an aggregate's root.
     /// </summary>
-    public class ChangeTracker : IAggregateChangeTracker
+    public class ChangeTracker : IChangeTracker
     {
         readonly List<IEvent> _changes;
 

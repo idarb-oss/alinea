@@ -9,7 +9,7 @@ namespace Alinea.Core.EventSourcing
 
         public EventRouter()
         {
-            _handlers = new Dictionary<Type, Action<IEvent>>();
+            _handlers = new();
         }
 
         public void ConfigureRoute(Type @event, Action<IEvent> handler)

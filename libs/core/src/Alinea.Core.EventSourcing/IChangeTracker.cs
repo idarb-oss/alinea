@@ -5,7 +5,7 @@ namespace Alinea.Core.EventSourcing
     /// <summary>
     /// Tracks changes that happens to an aggregate.
     /// </summary>
-    public interface IAggregateChangeTracker : IEnumerable<IEvent>
+    public interface IChangeTracker : IEnumerable<IEvent>
     {
         /// <summary>
         /// Tracks the changes to an aggregate root.
