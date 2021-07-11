@@ -54,21 +54,5 @@ jobs:
       - name: Build
         run: dotnet build --configuration $config --no-restore
 
-      - name: Set test information
-        run: |
-          if ${{ github.event_name == 'pull_request' }}
-          then
-            echo "::set-env name=test_path::TestReport.${{ steps.pr_number.outputs.pr }}.${{github.run_number}}"
-          else
-            echo "::set-env name=test_path::TestReport.${{github.run_number}}"
-          fi
-
       - name: Test
-        run: dotnet test --no-restore --no-build --configuration $config --verbosity normal --logger trx --results-directory ${{ env.test_path }}
-
-      - name: Upload dotnet test results
-        uses: actions/upload-artifact@v2
-        if: ${{ always() }}
-        with:
-          name: dotnet-results-${{ steps.PRNUMBER.outputs.pr }}
-          path: ${{ env.working_dir }}/${{ env.test_path }}
+        run: dotnet test --no-restore --no-build --configuration $config --verbosity normal
