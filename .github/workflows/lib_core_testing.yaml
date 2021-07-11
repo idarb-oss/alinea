@@ -4,8 +4,13 @@ on:
   push:
     branches:
       - feature/**
+    paths:
+      - libs/core/**
 
   pull_request:
+    types: [opened, reopened, synchronize, edited]
+    paths:
+      - libs/core/**
     branches:
       - develop
       - master
@@ -21,8 +26,7 @@ jobs:
     env:
       working_dir: ./libs/core
       config: 'Release'
-      test_path: 'test_results'
-
+      
     strategy:
       matrix:
         dotnet-version: ['5.0.x']
