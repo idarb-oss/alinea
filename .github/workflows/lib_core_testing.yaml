@@ -1,0 +1,58 @@
+name: Lib Core Testing
+
+on:
+  push:
+    branches:
+      - feature/**
+
+  pull_request:
+    branches:
+      - develop
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./libs/core
+
+    env:
+      working_dir: ./libs/core
+      config: 'Release'
+      test_path: 'test_results'
+
+    strategy:
+      matrix:
+        dotnet-version: ['5.0.x']
+
+    steps:
+      - name: Set PR build number
+        id: pr_number
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: kkak10/pr-number-action@v1.3
+
+      - uses: actions/checkout@v2
+      
+      - name: Setup .NET SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Nuget Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration $config --no-restore
+
+      - name: Test
+        run: dotnet test --no-restore --no-build --configuration $config --verbosity normal
