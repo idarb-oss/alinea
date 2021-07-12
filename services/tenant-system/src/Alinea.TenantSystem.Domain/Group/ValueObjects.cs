@@ -2,5 +2,5 @@ using System;
 
 namespace Alinea.TenantSystem.Domain.Group
 {
-    public record GroupId(Guid id);
+    public record GroupId(Guid Id);
 }
